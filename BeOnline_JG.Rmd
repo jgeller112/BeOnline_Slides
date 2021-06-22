@@ -102,13 +102,15 @@ knitr::include_graphics('images/closed1.jpeg')
 .pull-left[
 + 4-AFC closed-set (single word) SiN task 
   - 120 target words
-  - Spoken by 4 speakers (2 women)
+      - Each target word belongs to a set and within the set appear as target and foil
+      - Each word spoken by 4 speakers (2 women)
   - Minimal pair foils differing by first consonant
   
 + All analysis scripts, materials, and data are available on our OSF page. 
 ]
+<br> <br>
 .pull-right[
-```{r,fig.width=16, fig.align="center", fig.height=10,echo=FALSE}
+```{r, fig.align="center", fig.width=16, fig.height=12, echo=FALSE}
 knitr::include_graphics('Picture1.png')
 
 ```	
