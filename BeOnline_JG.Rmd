@@ -71,10 +71,10 @@ knitr::include_graphics('images/open.jpeg')
 # Closed vs. Open-Set Tasks
 + Closed-set
 
-  - Fall
-  - *Ball*
-  - Shawl
-  - Wall
+  - Fall <br>
+  - *Ball* <br>
+  - Shawl <br>
+  - Wall <br>
 
 
 ```{r,fig.width=12, fig.align="center", fig.height=10,echo=FALSE}
@@ -99,25 +99,29 @@ knitr::include_graphics('images/closed1.jpeg')
 ---
 
 # Iowa Test of Consonant Perception
-.pull-left[
 + 4-AFC closed-set (single word) SiN task 
+
   - 120 target words
-      - Each target word belongs to a set and within the set appear as target and foil
+  
+      - Each target word belongs to a set and within the set appears as target and foil
+      
       - Each word spoken by 4 speakers (2 women)
+      
   - Minimal pair foils differing by first consonant
   
++ Uses multi-speaker babble
+
 + All analysis scripts, materials, and data are available on our OSF page. 
-]
-<br> <br>
-.pull-right[
+---
+
+# Iowa Test of Consonant Perception
+
 ```{r, fig.align="center", fig.width=16, fig.height=12, echo=FALSE}
-knitr::include_graphics('Picture1.png')
+knitr::include_graphics('proc.png')
 
 ```	
-]
-
-
 ---
+
 background-image: url("images/empty_bottle_03.jpeg")
 
 ---
@@ -132,87 +136,42 @@ background-image: url("images/bob.jpeg")
 
 # Procedure
 
-.pull-left[
-
 + Session 1 (*N*=199)
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
-library(DiagrammeR)
-library(DiagrammeRsvg)
-library(magrittr)
-library(rsvg)
-grViz("digraph flowchart {
-      # node definitions with substituted label text
-      node [fontname = Helvetica, shape = rectangle]        
-      tab1 [label = '@@1']
-      tab2 [label = '@@2']
-      tab3 [label = '@@3']
+--
 
-      # edge definitions with the node IDs
-      tab1 -> tab2 -> tab3;
-      }
-
-      [1]: 'Headphone Screener'
-      [2]: 'Iowa Test of Consonant Perception Session 1 (240 trials)'
-      [3]: 'Consonant-Nucleus-Consonant (CNC)Task (100 word trials with noise (Lists 1 and 4))'
-      ")%>%
-
-
-    export_svg %>% 
-  charToRaw %>% 
-  rsvg_png("graph1.png")
-
-
-```
-
-```{r,fig.width=12, fig.align="center", fig.height=10,echo=FALSE}
-knitr::include_graphics('graph1.png')
+```{r,fig.align="center",echo=FALSE, out.width="30%"}
+knitr::include_graphics('Session1.png')
 
 ```	
-]
---
-.pull-right[
+
+---
+# Procedure
+
 + Session 2 (*N* = 98)
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
-
-grViz("digraph flowchart {
-      # node definitions with substituted label text
-      node [fontname = Helvetica, shape = rectangle]        
-      tab1 [label = '@@1']
-      tab2 [label = '@@2']
-      tab3 [label = '@@3']
-      tab4 [label = '@@4']
-
-      # edge definitions with the node IDs
-      tab1 -> tab2 -> tab3 -> tab4;
-      }
-
-      [1]: 'Headphone Screener'
-      [2]: 'Iowa Test of Consonant Perception Session 2 (240 trials)'
-      [3]: 'AzBio (20 sentences with noise)'
-      [4]: 'Demographics'
-      ") %>% 
-    export_svg %>% 
-  charToRaw %>% 
-  rsvg_png("graph2.png")
-```
-
-```{r,fig.width=12, fig.align="center", fig.height=10,echo=FALSE}
-knitr::include_graphics('graph2.png')
+```{r,fig.align="center",echo=FALSE, out.width="25%"}
+knitr::include_graphics('Session2.png')
 
 ```	
-]
+
 ---
 # Procedure
 - Let's try it out!
-
 https://app.gorilla.sc/openmaterials/97811
 
+
 ---
+# Pilot
+
++ Performance in Silence
+    - *N* = 50
+      - *M* = 95%
+---
+
 # Reliability
  + Test-Retest
-  - ICC = .8
+  - ICC = .80
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(osfr)
 library(ggstatsplot)
@@ -317,15 +276,89 @@ ggplot.component = list(theme(text = element_text(size = 20, family="Arial")), g
 cnc
 
 ```
+---
+# IRT Model
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="65%", fig.align="center"}
+
+library(ggrepel)
+library(see)
+
+irt=read.csv("irt.csv")
+
+rownames(irt) <- irt[,2]
+
+irt %>% ggplot(aes(Item, Estimate, colour=Item)) + geom_point2(size=4, alpha=0.5) + coord_flip(expand=TRUE) + theme_bw(base_size = 14) + geom_label_repel(aes(label = rownames(irt)), fontface = 'bold') + theme(axis.text.y=element_blank()) + ggtitle("Item Easiness") + theme(legend.position = "none")
+  
+```
+---
+
+# Talker 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+library(data.table)
+
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+
+bold <- element_text(face = "bold", color = "black", size = 14) #axis bold
+
+# use osfr to read in files from osfpage
+d=osf_retrieve_file("https://osf.io/t5ygc/") %>%
+    osf_download(conflicts = "skip")
+```
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.align="center", out.width="60%"}
+irt_data<-fread("s1_char_coding_irt.csv") # read in the  document from OSF 
+
+#ggsave('place.png', width = 8, height = 6)    
+                                                  
+talk<- irt_data %>% group_by(participant_private_id, talker) %>% dplyr::summarise(correct=mean(correct))
+
+talk1 <- talk  %>% mutate(Talker= case_when(talker=="emma" ~ "F1", talker=="wendy" ~ "F2", talker=="desmond" ~ "M1", TRUE ~ "M2"))
+
+speak_mean = talk1 %>% 
+  group_by(Talker)%>%
+  summarise(mean1=mean(correct))
+
+#speak=summarySEwithin(data = talk1, measurevar = "correct",
+                      # withinvars = c("Talker"), idvar = "participant_private_id")
+
+# Rainclouds for repeated measures, continued 
+p10 <- ggplot(talk1, aes(x = Talker, y = correct, fill = Talker)) +
+   coord_cartesian(ylim = c(0,1)) + 
+  geom_flat_violin(aes(fill = Talker),position = position_nudge(x = .1, y = 0), adjust = 1.5, trim = TRUE, alpha = .5, colour = NA)+
+   geom_point(aes(x = Talker, y = correct, colour = Talker),position = position_jitter(width = .05), size = 1, shape = 20)+
+  geom_boxplot(aes(x = Talker, y = correct, fill = Talker),outlier.shape = NA, alpha = .5, width = .1, colour = "black")+
+     stat_summary(fun="mean", geom="point", colour="darkred", size=3) + 
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(y = "Proportion Correct (Session 1)", x = "Talker") + theme_bw(base_size = 14)+
+    geom_label_repel(data=speak_mean, aes(y=mean1, label=round(mean1, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
+  theme(axis.text=bold) + theme(legend.position = "none")
+
+p10
+
+
+
+```
 
 
 ---
-# Future 
+
+# Future Plans
 
 .pull-left[
 + Validate in lab <br> <br>
   - We have data from 50 participants and data look comparable. <br> <br>
+  
 + Can we use this type of online testing for patients (e.g., cochlear implant patients)
+
++ Use it Experimentally
+
+  - Already being used in EEG and PET
 
 ]
 --
@@ -338,7 +371,7 @@ knitr::include_graphics('inlab.png')
 
 ---
 
-# What Future Me Learned From Past Me
+# What Present Me Learned From Past Me
 
 + Give bonuses for completing second session - *set up separate studies on recruitment platform.*
 
