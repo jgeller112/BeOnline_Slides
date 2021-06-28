@@ -1,6 +1,7 @@
 ---
 title: "What Did You Say? A Web-Based Validation of a Speech-In-Noise Task"
 author: "Jason Geller"
+subtitle: "Rutgers University Center for Cognitive Science"
 date: 'BeOnline 2021'
 output:
   xaringan::moon_reader:
@@ -40,7 +41,8 @@ options(htmltools.dir.version = FALSE)
 
 
 ---
-# Closed vs. Open-Set Tasks
+# Open-Set vs. Closed-set SiN Tasks
+
 + Open-set
 
 <html>
@@ -86,12 +88,16 @@ knitr::include_graphics('images/closed1.jpeg')
 # Issues 
 
 - Sentence based (open-set) tasks are generally preferred as they are the most ecologically valid 
- 
+
+--
 - However: 
   + Open-set tasks are difficult to use experimentally
      -  Engages a whole host of processes not related to speech perception
-  
+--
+
 - We need a closed-set task that better approximates everyday listening situations
+
+--
 
  + Lexical competition
  + Talker variability
@@ -107,9 +113,25 @@ knitr::include_graphics('images/closed1.jpeg')
       
       - Each word spoken by 4 speakers (2 women)
       
-  - Minimal pair foils differing by first consonant
+  - Minimal pairs differing by first consonant
   
 + Uses multi-speaker babble
+
+<html>
+  <head>
+    <title>Audio</title>
+  </head>
+  <body>
+    <script>
+      function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+      }
+    </script>
+    <input type="button" value="PLAY" onclick="play()">
+    <audio id="audio" src="ball_noise.wav"></audio>
+  </body>
+</html>
 
 + All analysis scripts, materials, and data are available on our OSF page. 
 ---
@@ -171,7 +193,7 @@ https://app.gorilla.sc/openmaterials/97811
 
 # Reliability
  + Test-Retest
-  - ICC = .80
+  - ICC(A,2)  = .80
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(osfr)
 library(ggstatsplot)
@@ -294,67 +316,13 @@ irt %>% ggplot(aes(Item, Estimate, colour=Item)) + geom_point2(size=4, alpha=0.5
 ```
 ---
 
-# Talker 
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-library(data.table)
-
-source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
-
-bold <- element_text(face = "bold", color = "black", size = 14) #axis bold
-
-# use osfr to read in files from osfpage
-d=osf_retrieve_file("https://osf.io/t5ygc/") %>%
-    osf_download(conflicts = "skip")
-```
-
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.align="center", out.width="60%"}
-irt_data<-fread("s1_char_coding_irt.csv") # read in the  document from OSF 
-
-#ggsave('place.png', width = 8, height = 6)    
-                                                  
-talk<- irt_data %>% group_by(participant_private_id, talker) %>% dplyr::summarise(correct=mean(correct))
-
-talk1 <- talk  %>% mutate(Talker= case_when(talker=="emma" ~ "F1", talker=="wendy" ~ "F2", talker=="desmond" ~ "M1", TRUE ~ "M2"))
-
-speak_mean = talk1 %>% 
-  group_by(Talker)%>%
-  summarise(mean1=mean(correct))
-
-#speak=summarySEwithin(data = talk1, measurevar = "correct",
-                      # withinvars = c("Talker"), idvar = "participant_private_id")
-
-# Rainclouds for repeated measures, continued 
-p10 <- ggplot(talk1, aes(x = Talker, y = correct, fill = Talker)) +
-   coord_cartesian(ylim = c(0,1)) + 
-  geom_flat_violin(aes(fill = Talker),position = position_nudge(x = .1, y = 0), adjust = 1.5, trim = TRUE, alpha = .5, colour = NA)+
-   geom_point(aes(x = Talker, y = correct, colour = Talker),position = position_jitter(width = .05), size = 1, shape = 20)+
-  geom_boxplot(aes(x = Talker, y = correct, fill = Talker),outlier.shape = NA, alpha = .5, width = .1, colour = "black")+
-     stat_summary(fun="mean", geom="point", colour="darkred", size=3) + 
-  scale_colour_brewer(palette = "Dark2")+
-  scale_fill_brewer(palette = "Dark2") + 
-  labs(y = "Proportion Correct (Session 1)", x = "Talker") + theme_bw(base_size = 14)+
-    geom_label_repel(data=speak_mean, aes(y=mean1, label=round(mean1, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
-  theme(axis.text=bold) + theme(legend.position = "none")
-
-p10
-
-
-
-```
-
-
----
-
 # Future Plans
 
 .pull-left[
-+ Validate in lab <br> <br>
-  - We have data from 50 participants and data look comparable. <br> <br>
++ Validation in lab <br> <br>
+  - We do have data from 50 participants and data look comparable. <br> <br>
   
-+ Can we use this type of online testing for patients (e.g., cochlear implant patients)
++ Online testing for patients (e.g., hearing aid and cochlear implant users)
 
 + Use it Experimentally
 

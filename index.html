@@ -14,6 +14,7 @@
 class: left, middle, inverse, title-slide
 
 # What Did You Say? A Web-Based Validation of a Speech-In-Noise Task
+## Rutgers University Center for Cognitive Science
 ### Jason Geller
 ### BeOnline 2021
 
@@ -33,7 +34,8 @@ background-image:url("images/cocktail.jpeg")
 
 
 ---
-# Closed vs. Open-Set Tasks
+# Open-Set vs. Closed-set SiN Tasks
+
 + Open-set
 
 &lt;html&gt;
@@ -61,10 +63,10 @@ background-image:url("images/cocktail.jpeg")
 # Closed vs. Open-Set Tasks
 + Closed-set
 
-  - Fall
-  - *Ball*
-  - Shawl
-  - Wall
+  - Fall &lt;br&gt;
+  - *Ball* &lt;br&gt;
+  - Shawl &lt;br&gt;
+  - Wall &lt;br&gt;
 
 
 &lt;img src="images/closed1.jpeg" width="1333" style="display: block; margin: auto;" /&gt;
@@ -73,12 +75,16 @@ background-image:url("images/cocktail.jpeg")
 # Issues 
 
 - Sentence based (open-set) tasks are generally preferred as they are the most ecologically valid 
- 
+
+--
 - However: 
   + Open-set tasks are difficult to use experimentally
      -  Engages a whole host of processes not related to speech perception
-  
+--
+
 - We need a closed-set task that better approximates everyday listening situations
+
+--
 
  + Lexical competition
  + Talker variability
@@ -86,22 +92,42 @@ background-image:url("images/cocktail.jpeg")
 ---
 
 # Iowa Test of Consonant Perception
-.pull-left[
 + 4-AFC closed-set (single word) SiN task 
+
   - 120 target words
-      - Each target word belongs to a set and within the set appear as target and foil
-      - Each word spoken by 4 speakers (2 women)
-  - Minimal pair foils differing by first consonant
   
+      - Each target word belongs to a set and within the set appears as target and foil
+      
+      - Each word spoken by 4 speakers (2 women)
+      
+  - Minimal pairs differing by first consonant
+  
++ Uses multi-speaker babble
+
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Audio&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+      function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+      }
+    &lt;/script&gt;
+    &lt;input type="button" value="PLAY" onclick="play()"&gt;
+    &lt;audio id="audio" src="ball_noise.wav"&gt;&lt;/audio&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
 + All analysis scripts, materials, and data are available on our OSF page. 
-]
-&lt;br&gt; &lt;br&gt;
-.pull-right[
-&lt;img src="Picture1.png" width="3171" style="display: block; margin: auto;" /&gt;
-]
-
-
 ---
+
+# Iowa Test of Consonant Perception
+
+&lt;img src="proc.png" width="1269" style="display: block; margin: auto;" /&gt;
+---
+
 background-image: url("images/empty_bottle_03.jpeg")
 
 ---
@@ -116,56 +142,69 @@ background-image: url("images/bob.jpeg")
 
 # Procedure
 
-.pull-left[
-
 + Session 1 (*N*=199)
 
-
-
-&lt;img src="graph1.png" width="927" style="display: block; margin: auto;" /&gt;
-]
 --
-.pull-right[
+
+&lt;img src="Session1.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+# Procedure
+
 + Session 2 (*N* = 98)
 
+&lt;img src="Session2.png" width="25%" style="display: block; margin: auto;" /&gt;
 
-
-&lt;img src="graph2.png" width="631" style="display: block; margin: auto;" /&gt;
-]
 ---
 # Procedure
 - Let's try it out!
-
 https://app.gorilla.sc/openmaterials/97811
 
+
 ---
+# Pilot
+
++ Performance in Silence
+    - *N* = 50
+      - *M* = 95%
+---
+
 # Reliability
  + Test-Retest
-  - ICC = .8
+  - ICC = .80
 
 
 
-&lt;img src="BeOnline_JG_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="BeOnline_JG_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 ---
 # Validity
 + Session 1 of ITCP and CNC
 
 
-&lt;img src="BeOnline_JG_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="BeOnline_JG_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 ---
 # Validity
 + Session 1 of ITCP and AzBio
 
-&lt;img src="BeOnline_JG_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
-
-
+&lt;img src="BeOnline_JG_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 ---
-# Future 
+# IRT Model
+
+
+&lt;img src="BeOnline_JG_files/figure-html/unnamed-chunk-10-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+---
+
+# Future Plans
 
 .pull-left[
-+ Validate in lab &lt;br&gt; &lt;br&gt;
-  - We have data from 50 participants and data look comparable. &lt;br&gt; &lt;br&gt;
-+ Can we use this type of online testing for patients (e.g., cochlear implant patients)
++ Validation in lab &lt;br&gt; &lt;br&gt;
+  - We do have data from 50 participants and data look comparable. &lt;br&gt; &lt;br&gt;
+  
++ Online testing for patients (e.g., hearing aid and cochlear implant users)
+
++ Use it Experimentally
+
+  - Already being used in EEG and PET
 
 ]
 --
@@ -175,7 +214,7 @@ https://app.gorilla.sc/openmaterials/97811
 
 ---
 
-# What Future Me Learned From Past Me
+# What Present Me Learned From Past Me
 
 + Give bonuses for completing second session - *set up separate studies on recruitment platform.*
 
