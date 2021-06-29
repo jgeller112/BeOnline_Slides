@@ -1,6 +1,6 @@
 ---
 title: "What Did You Say? A Web-Based Validation of a Speech-In-Noise Task"
-author: "Jason Geller"
+author: "Jason Geller, Ph.D."
 subtitle: "Rutgers University Center for Cognitive Science"
 date: 'BeOnline 2021'
 output:
@@ -14,8 +14,8 @@ output:
       countIncrementalSlides: false
       ratio: "16:12"
       titleSlideClass: ["left", "middle", "inverse"]
- 
 ---
+
 <style type="text/css">
 .remark-slide-content {
     font-size: 22px;
@@ -34,11 +34,6 @@ style_mono_accent(
 ```
 ---
 background-image:url("images/cocktail.jpeg")
-
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-```
-
 
 ---
 # Open-Set vs. Closed-set SiN Tasks
@@ -87,9 +82,10 @@ knitr::include_graphics('images/closed1.jpeg')
 ---
 # Issues 
 
-- Sentence based (open-set) tasks are generally preferred as they are the most ecologically valid 
+- Sentence-based (open-set) tasks are generally preferred as they are the most ecologically valid 
 
 --
+
 - However: 
   + Open-set tasks are difficult to use experimentally
      -  Engages a whole host of processes not related to speech perception
@@ -133,15 +129,9 @@ knitr::include_graphics('images/closed1.jpeg')
   </body>
 </html>
 
-+ All analysis scripts, materials, and data are available on our OSF page. 
----
++ All analysis scripts, materials, and data are available at our OSF page.
+  - Roll your own ITCP
 
-# Iowa Test of Consonant Perception
-
-```{r, fig.align="center", fig.width=16, fig.height=12, echo=FALSE}
-knitr::include_graphics('proc.png')
-
-```	
 ---
 
 background-image: url("images/empty_bottle_03.jpeg")
@@ -152,8 +142,12 @@ background-image: url("images/bob.jpeg")
 
 ---
 # Procedure
-+ Two sessions (1 week apart)
- - Used Gorilla and Prolific
+
++ Two sessions (spaced one week apart)
+
+  - Gorilla 
+  - Prolific
+
 ---
 
 # Procedure
@@ -237,6 +231,7 @@ session12
 ```
 ---
 # Validity
+
 + Session 1 of ITCP and CNC
 
 
@@ -301,7 +296,6 @@ cnc
 ---
 # IRT Model
 
-
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, out.width="65%", fig.align="center"}
 
 library(ggrepel)
@@ -311,23 +305,22 @@ irt=read.csv("irt.csv")
 
 rownames(irt) <- irt[,2]
 
-irt %>% ggplot(aes(Item, Estimate, colour=Item)) + geom_point2(size=4, alpha=0.5) + coord_flip(expand=TRUE) + theme_bw(base_size = 14) + geom_label_repel(aes(label = rownames(irt)), fontface = 'bold') + theme(axis.text.y=element_blank()) + ggtitle("Item Easiness") + theme(legend.position = "none")
+irt %>% ggplot(aes(Item, Estimate, colour=Item)) + geom_point2(size=4, alpha=0.5) + coord_flip(expand=TRUE) + theme_bw(base_size = 16) + geom_label_repel(aes(label = rownames(irt)), fontface = 'bold', box.padding = .5) + theme(axis.text.y=element_blank()) + ggtitle("Item Easiness") + theme(legend.position = "none")
   
 ```
+
 ---
 
-# Future Plans
+# Future Directions
 
 .pull-left[
-+ Validation in lab <br> <br>
-  - We do have data from 50 participants and data look comparable. <br> <br>
++ Validation in lab
+
+  - We do have data from 50 participants and data look comparable.
   
 + Online testing for patients (e.g., hearing aid and cochlear implant users)
 
 + Use it Experimentally
-
-  - Already being used in EEG and PET
-
 ]
 --
 .pull-right[
@@ -341,15 +334,15 @@ knitr::include_graphics('inlab.png')
 
 # What Present Me Learned From Past Me
 
-+ Give bonuses for completing second session - *set up separate studies on recruitment platform.*
++ Give bonuses for completing second session - *set up separate studies on recruitment platform*
 
 --
 
-+ Be explicit in your study description. 
++ Be explicit in your study description 
 
 --
 
-+ Email subjects multiple times to remind them of an upcoming session.
++ Email subjects multiple times to remind them of an upcoming session
 
 --
 
